@@ -228,10 +228,16 @@
     "family": "Angkor"
   },
   {
+    "family": "Annapurna SIL"
+  },
+  {
     "family": "Annie Use Your Telescope"
   },
   {
     "family": "Anonymous Pro"
+  },
+  {
+    "family": "Anta"
   },
   {
     "family": "Antic"
@@ -1818,6 +1824,9 @@
     "family": "Itim"
   },
   {
+    "family": "Jacquarda Bastarda 9"
+  },
+  {
     "family": "Jacques Francois"
   },
   {
@@ -1987,6 +1996,9 @@
   },
   {
     "family": "Kodchasan"
+  },
+  {
+    "family": "Kode Mono"
   },
   {
     "family": "Koh Santepheap"
@@ -2283,6 +2295,9 @@
     "family": "Mada"
   },
   {
+    "family": "Madimi One"
+  },
+  {
     "family": "Magra"
   },
   {
@@ -2437,6 +2452,9 @@
   },
   {
     "family": "Michroma"
+  },
+  {
+    "family": "Micro 5"
   },
   {
     "family": "Milonga"
@@ -2605,6 +2623,9 @@
   },
   {
     "family": "Nabla"
+  },
+  {
+    "family": "Namdhinggo"
   },
   {
     "family": "Nanum Brush Script"
@@ -3300,6 +3321,9 @@
     "family": "Noto Traditional Nushu"
   },
   {
+    "family": "Noto Znamenny Musical Notation"
+  },
+  {
     "family": "Nova Cut"
   },
   {
@@ -3346,6 +3370,9 @@
   },
   {
     "family": "Oi"
+  },
+  {
+    "family": "Ojuju"
   },
   {
     "family": "Old Standard TT"
@@ -3769,6 +3796,9 @@
   },
   {
     "family": "Redacted Script"
+  },
+  {
+    "family": "Reddit Mono"
   },
   {
     "family": "Redressed"
@@ -4389,6 +4419,9 @@
     "family": "Syne Tactile"
   },
   {
+    "family": "Tac One"
+  },
+  {
     "family": "Tai Heritage Pro"
   },
   {
@@ -4702,6 +4735,18 @@
   },
   {
     "family": "Yantramanav"
+  },
+  {
+    "family": "Yarndings 12"
+  },
+  {
+    "family": "Yarndings 12 Charted"
+  },
+  {
+    "family": "Yarndings 20"
+  },
+  {
+    "family": "Yarndings 20 Charted"
   },
   {
     "family": "Yatra One"

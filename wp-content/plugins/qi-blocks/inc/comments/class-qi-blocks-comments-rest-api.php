@@ -1,10 +1,15 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 class Qi_Blocks_Comments_Rest_API {
 	private static $instance;
 
 	public function __construct() {
-		// Extend main rest api routes with new case
+		// Extend main rest api routes with new case.
 		add_filter( 'qi_blocks_filter_rest_api_routes', array( $this, 'add_rest_api_routes' ) );
 	}
 

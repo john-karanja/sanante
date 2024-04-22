@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! class_exists( 'Qi_Blocks_Fonts' ) ) {
 	/**
 	 * Rest API class with configuration
@@ -9,7 +14,7 @@ if ( ! class_exists( 'Qi_Blocks_Fonts' ) ) {
 
 		public function __construct() {
 
-			// Localize main editor js script with additional variables
+			// Localize main editor js script with additional variables.
 			add_filter( 'qi_blocks_filter_localize_main_editor_js', array( $this, 'localize_script' ) );
 		}
 

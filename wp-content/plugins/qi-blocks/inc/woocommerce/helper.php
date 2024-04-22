@@ -1,7 +1,9 @@
 <?php
 
-// Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
 
 if ( ! function_exists( 'qi_blocks_woo_get_global_product' ) ) {
 	/**

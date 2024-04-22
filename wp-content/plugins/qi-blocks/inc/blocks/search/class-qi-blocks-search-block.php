@@ -8,7 +8,7 @@ if ( ! class_exists( 'Qi_Blocks_Search_Block' ) ) {
 		private static $instance;
 
 		public function __construct() {
-			// Set block data
+			// Set block data.
 			$this->set_block_name( 'search' );
 			$this->set_block_title( esc_html__( 'Search', 'qi-blocks' ) );
 			$this->set_block_subcategory( esc_html__( 'Content', 'qi-blocks' ) );
@@ -908,7 +908,7 @@ if ( ! class_exists( 'Qi_Blocks_Search_Block' ) ) {
 			return self::$instance;
 		}
 
-		function dynamic_render_callback( $attributes ) {
+		public function dynamic_render_callback( $attributes ) {
 			$html = '';
 
 			$block_classes   = qi_blocks_get_block_holder_classes( 'search', $attributes );

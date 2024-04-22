@@ -50,7 +50,7 @@ class GlobalsUnlimitedElements{
 	const VIEW_BACKGROUNDS = "backgrounds";
 	const VIEW_FORM_ENTRIES = "form_entries";
 	const VIEW_CHANGELOG = "changelog";
-
+	
 	const LINK_BUY = "https://unlimited-elements.com/pricing/";
 
 	const SLUG_BUY_BROWSER = "page=unlimitedelements-pricing";
@@ -78,6 +78,7 @@ class GlobalsUnlimitedElements{
 
 	const LINK_HELP_POSTSLIST = "https://unlimited-elements.helpscoutdocs.com/article/69-post-list-query-usage";
 
+	const PREFIX_ANIMATION_CLASS = "ue-animation-";
 	const PREFIX_TEMPLATE_PERMALINK = "unlimited-";
 
 	public static $enableCPT = false;
@@ -91,14 +92,17 @@ class GlobalsUnlimitedElements{
 	 * init globals
 	 */
 	public static function initGlobals(){
-
-
+		
+		if(defined("UE_ENABLE_GUTENBERG_SUPPORT"))
+			self::$enableGutenbergSupport = true;
+		
+					
 		self::$urlTemplatesList = admin_url("edit.php?post_type=elementor_library&tabs_group=library");
 
 		self::$urlAccount = admin_url("admin.php?page=unlimitedelements-account");
-
+		
 		UniteProviderFunctionsUC::addAction('admin_init', array("GlobalsUnlimitedElements", 'initAdminNotices'));
-
+		
 		if(self::$enableGutenbergSupport == true)
 			self::initGutenbergIntegration();
 

@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! class_exists( 'Qi_Blocks_Admin_General_Page' ) ) {
 	class Qi_Blocks_Admin_General_Page {
 		private static $instance;

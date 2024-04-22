@@ -8,7 +8,7 @@ if ( ! class_exists( 'Qi_Blocks_Countdown_Block' ) ) {
 		private static $instance;
 
 		public function __construct() {
-			// Set block data
+			// Set block data.
 			$this->set_block_name( 'countdown' );
 			$this->set_block_title( esc_html__( 'Countdown', 'qi-blocks' ) );
 			$this->set_block_subcategory( esc_html__( 'Showcase/Presentational', 'qi-blocks' ) );

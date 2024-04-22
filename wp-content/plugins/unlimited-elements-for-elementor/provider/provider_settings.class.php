@@ -9,7 +9,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 class UniteCreatorSettings extends UniteCreatorSettingsWork{
 
-	const SELECTOR_PLACEHOLDER = "{{SELECTOR}}";
+	const SELECTOR_PLACEHOLDER = "{{selector}}";
 
 	/**
 	 * add settings provider types
@@ -1022,7 +1022,6 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$imageParams = array_merge($baseParams, array(
 			"selector_value" => HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_BACKGROUND, "image"),
 			"is_responsive" => true,
-			"responsive_id" => $imageName,
 		));
 
 		foreach($responsive as $device => $suffix){
@@ -1055,7 +1054,6 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$positionParams = array_merge($baseParams, array(
 			"selector_value" => HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_BACKGROUND, "position"),
 			"is_responsive" => true,
-			"responsive_id" => $positionName,
 		));
 
 		foreach($responsive as $device => $suffix){
@@ -1097,7 +1095,6 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$repeatParams = array_merge($baseParams, array(
 			"selector_value" => HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_BACKGROUND, "repeat"),
 			"is_responsive" => true,
-			"responsive_id" => $repeatName,
 		));
 
 		foreach($responsive as $device => $suffix){
@@ -1121,7 +1118,6 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$sizeParams = array_merge($baseParams, array(
 			"selector_value" => HelperHtmlUC::getCSSSelectorValueByParam(UniteCreatorDialogParam::PARAM_BACKGROUND, "size"),
 			"is_responsive" => true,
-			"responsive_id" => $sizeName,
 		));
 
 		foreach($responsive as $device => $suffix){
@@ -2420,11 +2416,11 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 
 
 		$this->addHr($name."_hr_after_order_dir", $params);
-		
-		//allow to modify settings by third party plugins 
-		
+
+		//allow to modify settings by third party plugins
+
 		do_action("ue_modify_post_list_settings", $this, $name);
-		
+
 
 		//---- query id -----
 
@@ -3104,6 +3100,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$fontFamily = array_flip($fontFamily);
 
 		$params = array();
+		$params["class"] = "select2";
 		$params["selector"] = self::SELECTOR_PLACEHOLDER;
 		$params["selector_value"] = HelperHtmlUC::getCSSSelectorValueByParam($type, "family");
 
@@ -3118,7 +3115,6 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["selector"] = self::SELECTOR_PLACEHOLDER;
 		$params["selector_value"] = HelperHtmlUC::getCSSSelectorValueByParam($type, "size");
 		$params["is_responsive"] = true;
-		$params["responsive_id"] = "font_size";
 
 		foreach($responsive as $device => $suffix){
 			$params["responsive_type"] = $device;
@@ -3179,7 +3175,6 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["selector"] = self::SELECTOR_PLACEHOLDER;
 		$params["selector_value"] = HelperHtmlUC::getCSSSelectorValueByParam($type, "line-height");
 		$params["is_responsive"] = true;
-		$params["responsive_id"] = "line_height";
 
 		foreach($responsive as $device => $suffix){
 			$params["responsive_type"] = $device;
@@ -3196,7 +3191,6 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["selector"] = self::SELECTOR_PLACEHOLDER;
 		$params["selector_value"] = HelperHtmlUC::getCSSSelectorValueByParam($type, "letter-spacing");
 		$params["is_responsive"] = true;
-		$params["responsive_id"] = "letter_spacing";
 
 		foreach($responsive as $device => $suffix){
 			$params["responsive_type"] = $device;
@@ -3245,6 +3239,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["min"] = 0;
 		$params["max"] = 100;
 		$params["step"] = 1;
+		$params["units"] = array("px");
 		$params["group_selector"] = $groupSelectorName;
 
 		$this->addRangeSlider($blurName, $blurDefault, __("Blur", "unlimited-elements-for-elementor"), $params);
@@ -3257,6 +3252,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["min"] = -100;
 		$params["max"] = 100;
 		$params["step"] = 1;
+		$params["units"] = array("px");
 		$params["group_selector"] = $groupSelectorName;
 
 		$this->addRangeSlider($xName, $xDefault, __("Horizontal", "unlimited-elements-for-elementor"), $params);
@@ -3269,6 +3265,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["min"] = -100;
 		$params["max"] = 100;
 		$params["step"] = 1;
+		$params["units"] = array("px");
 		$params["group_selector"] = $groupSelectorName;
 
 		$this->addRangeSlider($yName, $yDefault, __("Vertical", "unlimited-elements-for-elementor"), $params);
@@ -3311,6 +3308,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["min"] = -100;
 		$params["max"] = 100;
 		$params["step"] = 1;
+		$params["units"] = array("px");
 		$params["group_selector"] = $groupSelectorName;
 
 		$this->addRangeSlider($xName, $xDefault, __("Horizontal", "unlimited-elements-for-elementor"), $params);
@@ -3323,6 +3321,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["min"] = -100;
 		$params["max"] = 100;
 		$params["step"] = 1;
+		$params["units"] = array("px");
 		$params["group_selector"] = $groupSelectorName;
 
 		$this->addRangeSlider($yName, $yDefault, __("Vertical", "unlimited-elements-for-elementor"), $params);
@@ -3335,6 +3334,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["min"] = 0;
 		$params["max"] = 100;
 		$params["step"] = 1;
+		$params["units"] = array("px");
 		$params["group_selector"] = $groupSelectorName;
 
 		$this->addRangeSlider($blurName, $blurDefault, __("Blur", "unlimited-elements-for-elementor"), $params);
@@ -3347,6 +3347,7 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["min"] = -100;
 		$params["max"] = 100;
 		$params["step"] = 1;
+		$params["units"] = array("px");
 		$params["group_selector"] = $groupSelectorName;
 
 		$this->addRangeSlider($spreadName, $spreadDefault, __("Spread", "unlimited-elements-for-elementor"), $params);
@@ -3398,7 +3399,6 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["max"] = 10;
 		$params["step"] = 0.1;
 		$params["units"] = array("px");
-		$params["show_units"] = false;
 		$params["group_selector"] = $groupSelectorName;
 
 		$this->addRangeSlider($blurName, $blurDefault, __("Blur", "unlimited-elements-for-elementor"), $params);
@@ -3412,7 +3412,6 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["max"] = 200;
 		$params["step"] = 1;
 		$params["units"] = array("%");
-		$params["show_units"] = false;
 		$params["group_selector"] = $groupSelectorName;
 
 		$this->addRangeSlider($brightnessName, $brightnessDefault, __("Brightness", "unlimited-elements-for-elementor"), $params);
@@ -3426,7 +3425,6 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["max"] = 200;
 		$params["step"] = 1;
 		$params["units"] = array("%");
-		$params["show_units"] = false;
 		$params["group_selector"] = $groupSelectorName;
 
 		$this->addRangeSlider($contrastName, $contrastDefault, __("Contrast", "unlimited-elements-for-elementor"), $params);
@@ -3440,7 +3438,6 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["max"] = 200;
 		$params["step"] = 1;
 		$params["units"] = array("%");
-		$params["show_units"] = false;
 		$params["group_selector"] = $groupSelectorName;
 
 		$this->addRangeSlider($saturationName, $saturationDefault, __("Saturation", "unlimited-elements-for-elementor"), $params);
@@ -3454,7 +3451,6 @@ class UniteCreatorSettings extends UniteCreatorSettingsWork{
 		$params["max"] = 360;
 		$params["step"] = 1;
 		$params["units"] = array("deg");
-		$params["show_units"] = false;
 		$params["group_selector"] = $groupSelectorName;
 
 		$this->addRangeSlider($hueName, $hueDefault, __("Hue", "unlimited-elements-for-elementor"), $params);

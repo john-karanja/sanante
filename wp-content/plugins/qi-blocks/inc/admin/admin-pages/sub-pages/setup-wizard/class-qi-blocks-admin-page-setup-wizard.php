@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_blocks_add_setup_wizard_sub_page_to_list' ) ) {
 	/**
 	 * Function that add additional sub-page item into general page list
@@ -67,7 +72,7 @@ if ( class_exists( 'Qi_Blocks_Admin_Sub_Pages' ) ) {
 				$formatted[ $subcategory_key ][ $key ] = $block;
 			}
 
-			// Move Before/After Comparison Slider element to the end - designer requests
+			// Move Before/After Comparison Slider element to the end - designer requests.
 			foreach ( $formatted as $formatted_key => $formatted_items ) {
 
 				if ( isset( $formatted_items['before-after'] ) ) {
@@ -122,9 +127,9 @@ if ( class_exists( 'Qi_Blocks_Admin_Sub_Pages' ) ) {
 
 				check_ajax_referer( 'qi_blocks_setup_wizard_save_nonce', 'qi_blocks_setup_wizard_save_nonce' );
 
-				// Prevent other handles if skip is triggered
+				// Prevent other handles if skip is triggered.
 				if ( isset( $_REQUEST['skip_trigger'] ) && '' === sanitize_text_field( $_REQUEST['skip_trigger'] ) ) {
-					// Set Elements step
+					// Set Elements step.
 					$disabled = array();
 					$blocks   = $this->get_blocks();
 
@@ -136,13 +141,13 @@ if ( class_exists( 'Qi_Blocks_Admin_Sub_Pages' ) ) {
 
 					update_option( QI_BLOCKS_DISABLED_BLOCKS, ! empty( $disabled ) ? $disabled : false );
 
-					// Send User stats
+					// Send User stats.
 					if ( isset( $_REQUEST['user_stats'] ) && 'yes' === sanitize_text_field( $_REQUEST['user_stats'] ) ) {
 						$this->handle_allowed_user_stats();
 					}
 				}
 
-				// Set wizard flag
+				// Set wizard flag.
 				$results = update_option( 'qi_blocks_setup_wizard', 'completed' );
 
 				if ( $results ) {

@@ -97,7 +97,23 @@ class UniteCreatorParamsProcessorWork{
 			}
 
 		}
-
+		
+		switch($type){
+			case UniteCreatorDialogParam::PARAM_NUMBER:		//modify number field
+				
+				if(is_array($value)){
+					
+					$defaultValue = UniteFunctionsUC::getVal($param, "default_value");
+					$value = UniteFunctionsUC::getVal($value, "size", $defaultValue);
+					
+					if(is_numeric($value) == false)
+						$value = 0;
+					
+				}
+				
+			break;
+		}
+		
 		$addonType = $this->addon->getType();
 
 		if($addonType == "elementor")
@@ -161,40 +177,39 @@ class UniteCreatorParamsProcessorWork{
 	 */
 	private function checkModifyParamOptions($param){
 
-		if(isset($param["options"]) == false)
-			return($param);
+		if(isset($param["options"]) === false)
+			return $param;
 
 		$phpFilter = UniteFunctionsUC::getVal($param, "php_filter_name");
 
-		if(empty($phpFilter))
-			return($param);
+		if(empty($phpFilter) === true)
+			return $param;
 
 		$options = $param["options"];
 
 		//manual modify
-
 		$options = $this->checkModifyParamOptions_manual($options, $phpFilter);
 
 		//general modify
+		$options = apply_filters("ue_modify_dropdown_" . $phpFilter, $options);
 
-		$options = apply_filters("ue_modify_dropdown_".$phpFilter, $options);
-
-		if(empty($options))
+		if(empty($options) === true)
 			$options = array();
+
+		// bug: options shouldn't be flipped, because it swaps label-value pairs, which is wrong
+		// keep for backward compatibility
+		if(empty($options) === false)
+			$options = array_flip($options);
 
 		$value = UniteFunctionsUC::getVal($param, "value");
 
-		if(!empty($options))
-			$options = array_flip($options);
-
-		if(is_string($value) && in_array($value, $options) == false)
+		if(is_string($value) === true && in_array($value, $options) === false)
 			$value = UniteFunctionsUC::getArrFirstValue($options);
 
 		$param["options"] = $options;
 		$param["value"] = $value;
 
-
-		return($param);
+		return $param;
 	}
 
 	/**
@@ -984,8 +999,11 @@ class UniteCreatorParamsProcessorWork{
 				$imageUrl = $value;
 		}
 
-		if(empty($imageId) === true && empty($imageUrl) === true)
+		if(empty($imageId) === true && empty($imageUrl) === true) {
+			$data[$name] = "";
+
 			return $data;
+		}
 
 		if(empty($imageId) === false)
 			$imageUrl = UniteProviderFunctionsUC::getImageUrlFromImageID($imageId, $imageSize);
@@ -1543,7 +1561,7 @@ class UniteCreatorParamsProcessorWork{
 
 		$url = UniteFunctionsUC::getVal($value, "url");
 		$url = esc_url($url);
-	
+
 		$isExternal = UniteFunctionsUC::getVal($value, "is_external");
 		$noFollow = UniteFunctionsUC::getVal($value, "nofollow");
 
@@ -1552,7 +1570,7 @@ class UniteCreatorParamsProcessorWork{
 
 		$urlFull = $url;
 		$scheme = parse_url($url, PHP_URL_SCHEME);
-		
+
 		if(empty($scheme) === true){
 			$urlFull = "https://{$url}";
 			$urlNoPrefix = $url;
@@ -1575,7 +1593,8 @@ class UniteCreatorParamsProcessorWork{
 		$data[$name . "_html_attributes"] = $addHtml;
 		$data[$name . "_full"] = $urlFull;
 		$data[$name . "_noprefix"] = $urlNoPrefix;
-
+		
+		
 		return $data;
 	}
 
@@ -1754,14 +1773,17 @@ class UniteCreatorParamsProcessorWork{
 	 */
 	protected function outputHoverAnimationsStyles($value, $name, $param, $processType){
 
-		if(empty($value))
-			return(false);
+		if(empty($value) === true)
+			return;
 
-		if($processType != self::PROCESS_TYPE_OUTPUT && $processType != self::PROCESS_TYPE_OUTPUT_BACK)
-			return(false);
+		if($processType !== self::PROCESS_TYPE_OUTPUT
+			&& $processType !== self::PROCESS_TYPE_OUTPUT_BACK)
+			return;
 
-		HelperProviderCoreUC_EL::includeHoverAnimationsStyles();
-
+		if(strpos($value, GlobalsUnlimitedElements::PREFIX_ANIMATION_CLASS) === 0)
+			HelperUC::includeUEAnimationStyles();
+		else
+			HelperProviderCoreUC_EL::includeHoverAnimationsStyles();
 	}
 
 	private function z__________SPECIAL_PARAMS_DATA__________(){}
@@ -1892,7 +1914,7 @@ class UniteCreatorParamsProcessorWork{
 		}
 
 		//process output type only
-		if($isOutputProcessType == false)
+		if($isOutputProcessType === false)
 			return($data);
 
 		switch($type){
@@ -1953,25 +1975,20 @@ class UniteCreatorParamsProcessorWork{
 		foreach($arrParams as $param){
 			$type = UniteFunctionsUC::getVal($param, "type");
 
-			if(!empty($filterType)){
-				if($type != $filterType)
-					continue;
-			}
+			if ($filterType !== null && $filterType !== $type)
+				continue;
 
 			$name = UniteFunctionsUC::getVal($param, "name");
-
-			$defaultValue = UniteFunctionsUC::getVal($param, "default_value");
-			$value = $defaultValue;
-			if(array_key_exists("value", $param))
-				$value = UniteFunctionsUC::getVal($param, "value");
-
-			$value = $this->convertValueByType($value, $type, $param);
 
 			if(empty($name))
 				continue;
 
 			if(isset($data[$name]))
 				continue;
+
+			$defaultValue = UniteFunctionsUC::getVal($param, "default_value");
+			$value = UniteFunctionsUC::getVal($param, "value", $defaultValue);
+			$value = $this->convertValueByType($value, $type, $param);
 
 			if($type !== "imagebase_fields")
 				$data[$name] = $value;
@@ -2027,22 +2044,17 @@ class UniteCreatorParamsProcessorWork{
 
 		$objParams = $this->addon->getParams();
 
-		//put post list to bottom of proccessing
+		//put posts list to bottom of processing
 		$objParams = $this->sortMainParamsForOutput($objParams);
-
 		$arrParams = $this->getProcessedParamsValues($objParams, $processType);
-
 		$arrVars = $this->getMainVariablesProcessed($arrParams);
 
-		if($this->isOutputProcessType($processType) == true){
-
+		if($this->isOutputProcessType($processType) === true){
 			$arrParams = UniteProviderFunctionsUC::applyFilters(UniteCreatorFilters::FILTER_MODIFY_ADDON_OUTPUT_PARAMS, $arrParams, $this->addon);
-
 			$arrParams = $this->processFonts($arrParams, "main");
 		}
 
 		$arrParams = array_merge($arrParams, $arrVars);
-
 
 		return($arrParams);
 	}
@@ -2148,41 +2160,40 @@ class UniteCreatorParamsProcessorWork{
 	 * get item data
 	 */
 	public function getProcessedItemsData($arrItems, $processType, $forTemplate = true, $filterType = null){
-
+				
 		$this->validateInited();
 		self::validateProcessType($processType);
 
 		//in case of gallery grouped settings, don't process at all
-
 		$specialType = $this->addon->getSpecialType();
-		if($specialType == UniteCreatorAddon::ITEMS_TYPE_IMAGE)
-			return($arrItems);
 
+		if($specialType === UniteCreatorAddon::ITEMS_TYPE_IMAGE)
+			return $arrItems;
 
 		$this->setProcessType($processType);
-
+		
 		if(empty($arrItems))
-			return(array());
+			return array();
 
 		//check for special params
 		$arrItemsImageSizes = $this->getProcessedItemsData_getImageSize($processType);
 
-		$operations = new UCOperations();
-
 		$arrItemsNew = array();
 		$arrItemParams = $this->addon->getParamsItems();
-
-		if(!empty($arrItemsImageSizes)){
+				
+		if(!empty($arrItemsImageSizes))
 			$arrItemParams = $this->getProcessedItemsData_modifyImageItem($arrItemParams, $arrItemsImageSizes);
-		}
-
+		
 		$arrItemParams = $this->initProcessParams($arrItemParams);
-
 		$numItems = count($arrItems);
 
 		foreach($arrItems as $index => $arrItemValues){
-
+			// get elementor row id
 			$elementorID = UniteFunctionsUC::getVal($arrItemValues, "_id");
+
+			// get gutenberg item id
+			if(empty($elementorID))
+				$elementorID = UniteFunctionsUC::getVal($arrItemValues, "_generated_id");
 
 			//if not found - generate one
 			if(empty($elementorID))
@@ -2190,14 +2201,13 @@ class UniteCreatorParamsProcessorWork{
 
 			$arrParamsNew = $this->addon->setParamsValuesItems($arrItemValues, $arrItemParams);
 			$item = $this->getProcessedParamsValues($arrParamsNew, $processType, $filterType);
-
-			if($this->isOutputProcessType($processType) == true){
+			
+			
+			if($this->isOutputProcessType($processType) === true)
 				$item = $this->processFonts($item, "items", $index);
-			}
 
-			//in case of filter it's enought
+			//in case of filter - it's enough
 			if(!empty($filterType)){
-
 				$arrItemsNew[] = $item;
 				continue;
 			}
@@ -2215,11 +2225,9 @@ class UniteCreatorParamsProcessorWork{
 						$urlThumb = $urlImage;
 
 					$item["thumb"] = $urlThumb;
-
 					$item["image_id"] = UniteFunctionsUC::getVal($arrItemValues, "image_id");
 					$item["raw_caption"] = UniteFunctionsUC::getVal($arrItemValues, "raw_caption");
 					$item["raw_title"] = UniteFunctionsUC::getVal($arrItemValues, "raw_title");
-
 				break;
 			}
 
@@ -2228,19 +2236,19 @@ class UniteCreatorParamsProcessorWork{
 			$item = array_merge($item, $arrVarsData);
 
 			//add elementor id
-			if($itemsType != UniteCreatorAddon::ITEMS_TYPE_IMAGE)
-				$item["item_repeater_class"] = "elementor-repeater-item-".$elementorID;
+			$item["_generated_id"] = $elementorID;
 
-			if($forTemplate == true)
-				$arrItemsNew[] = array("item"=>$item);
+			if($itemsType != UniteCreatorAddon::ITEMS_TYPE_IMAGE)
+				$item["item_repeater_class"] = "elementor-repeater-item-" . $elementorID;
+
+			if($forTemplate === true)
+				$arrItemsNew[] = array("item" => $item);
 			else
 				$arrItemsNew[] = $item;
 		}
 
-		//dmp("get processed data output"); dmp($arrItemsNew); exit();
-
-
-		return($arrItemsNew);
+				
+		return $arrItemsNew;
 	}
 
 

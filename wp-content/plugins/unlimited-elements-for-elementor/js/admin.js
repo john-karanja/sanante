@@ -54,9 +54,11 @@ function UniteAdminUC(){
 	g_providerAdmin.setParent(this);
 
 	var g_temp = {
-		handle:null,
-		keyupTrashold: 500,
-		timer:null
+		timer: null,
+		trasholdHandle: null,
+		trasholdDelay: 500,
+		debounceDelay: 500,
+		throttleDelay: 50,
 	};
 
 	this.getvalopt = {
@@ -499,20 +501,49 @@ function UniteAdminUC(){
 
 	};
 
+	/**
+	 * create function with debounce
+	 */
+	this.debounce = function (func, delay) {
+		var handle = null;
+
+		return function () {
+			var args = arguments;
+
+			clearTimeout(handle);
+
+			handle = setTimeout(() => {
+				func.apply(null, args);
+			}, delay || g_temp.debounceDelay);
+		};
+	};
+
+	/**
+	 * create function with throttle
+	 */
+	this.throttle = function (func, delay) {
+		var handle = null;
+
+		return function () {
+			if (handle === null) {
+				func.apply(null, arguments);
+
+				handle = setTimeout(function () {
+					handle = null;
+				}, delay || g_temp.throttleDelay);
+			}
+		};
+	};
 
 	/**
 	 * run function with trashold
 	 */
-	this.runWithTrashold = function(func, event, objInput){
+	this.runWithTrashold = function (func, event, objInput) {
+		clearTimeout(g_temp.trasholdHandle);
 
-		if(g_temp.handle)
-			clearTimeout(g_temp.handle);
-
-		g_temp.handle = setTimeout(function(){
+		g_temp.trasholdHandle = setTimeout(function () {
 			func(event, objInput);
-		}
-		, g_temp.keyupTrashold);
-
+		}, g_temp.trasholdDelay);
 	};
 
 

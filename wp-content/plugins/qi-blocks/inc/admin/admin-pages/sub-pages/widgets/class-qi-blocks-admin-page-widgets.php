@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 if ( ! function_exists( 'qi_blocks_add_widgets_sub_page_to_list' ) ) {
 	/**
 	 * Function that add additional sub-page item into general page list

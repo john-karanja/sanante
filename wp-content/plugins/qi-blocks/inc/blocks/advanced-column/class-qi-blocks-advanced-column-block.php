@@ -8,7 +8,7 @@ if ( ! class_exists( 'Qi_Blocks_Advanced_Column_Block' ) ) {
 		private static $instance;
 
 		public function __construct() {
-			// Set block name
+			// Set block name.
 			$this->set_block_name( 'advanced-column' );
 
 			parent::__construct();

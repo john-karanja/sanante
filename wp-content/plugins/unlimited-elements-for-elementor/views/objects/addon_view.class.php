@@ -111,7 +111,7 @@ class UniteCreatorAddonView{
 		$params["class"] = "alias";
 
 		$settingsItem->addTextBox("items_section_title", "", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".esc_html__("Section Label", "unlimited-elements-for-elementor"), $params);
-
+		
 		$settingsItem->addControl("enable_items", "items_section_title", "show", "true");
 
 		//heading
@@ -129,7 +129,7 @@ class UniteCreatorAddonView{
 
 
 		$settingsItem->setStoredValues($options);
-
+		
 		$this->settingsItemOutput = new UniteSettingsOutputInlineUC();
 		$this->settingsItemOutput->init($settingsItem);
 		$this->settingsItemOutput->setAddCss("[wrapperid] .unite_table_settings_wide th{width:100px;}");
@@ -1285,21 +1285,21 @@ class UniteCreatorAddonView{
 						</div>
 					</div>
 
-					<a class="unite-button-secondary" href="<?php echo esc_attr($urlBack)?>"><?php echo esc_html($textBack)?></a>
+					<a class="unite-button-secondary" href="<?php echo esc_url($urlBack)?>"><?php echo esc_html($textBack)?></a>
 
 					<?php if($this->showAddonDefaluts == true):?>
-					<a href="<?php echo esc_attr($urlAddonDefaults)?>" class="unite-button-secondary"><?php echo esc_html($textDefaults) ?></a>
+					<a href="<?php echo esc_url($urlAddonDefaults)?>" class="unite-button-secondary"><?php echo esc_html($textDefaults) ?></a>
 					<?php endif?>
 
 					<?php if($this->showTestAddon == true):?>
-					<a href="<?php echo esc_attr($urlTestAddon)?>" target="_blank" class="unite-button-secondary " ><?php echo esc_html($textTestAddon)?></a>
+					<a href="<?php echo esc_url($urlTestAddon)?>" target="_blank" class="unite-button-secondary " ><?php echo esc_html($textTestAddon)?></a>
 
 					<?php if($this->showTestAddonNew == true):?>
-						<a href="<?php echo esc_attr($urlTestAddonNew)?>" target="_blank" class="unite-button-primary " style="background-color:green !important;"><?php echo esc_html($textTestAddonNew)?></a>
+						<a href="<?php echo esc_url($urlTestAddonNew)?>" target="_blank" class="unite-button-primary " style="background-color:green !important;"><?php echo esc_html($textTestAddonNew)?></a>
 						&nbsp;&nbsp;
 					<?php endif?>
 
-					<a href="<?php echo esc_attr($urlPreviewAddon)?>" target="_blank" class="unite-button-secondary " ><?php echo esc_html($textPreviewAddon)?></a>
+					<a href="<?php echo esc_url($urlPreviewAddon)?>" target="_blank" class="unite-button-secondary " ><?php echo esc_html($textPreviewAddon)?></a>
 					<?php endif?>
 
 					<?php if($isExistsInCatalog == true): ?>
@@ -1680,10 +1680,10 @@ class UniteCreatorAddonView{
 	private function putConfig(){
 
 		$options = array();
-		$options["url_preview"] = $this->objAddon->getUrlPreview();
+		$options["url_preview"] = $this->objAddon->getPreviewImageUrl();
 
 		$arrThumbSizes = $this->getThumbSizes();
-				
+
 		$options["thumb_sizes"] = $arrThumbSizes;
 
 		$arrImageAddFields = $this->getImageAddFields();

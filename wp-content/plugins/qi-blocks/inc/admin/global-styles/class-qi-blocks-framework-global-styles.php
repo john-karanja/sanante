@@ -1,26 +1,28 @@
 <?php
 
-// Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
 
 if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 	class Qi_Blocks_Framework_Global_Styles {
 		private static $instance;
 
 		public function __construct() {
-			// Create global options
+			// Create global options.
 			add_action( 'init', array( $this, 'add_options' ) );
 
-			// Extend main rest api routes with new case
+			// Extend main rest api routes with new case.
 			add_filter( 'qi_blocks_filter_rest_api_routes', array( $this, 'add_rest_api_routes' ) );
 
-			// Localize main editor js script with additional variables
+			// Localize main editor js script with additional variables.
 			add_filter( 'qi_blocks_filter_localize_main_editor_js', array( $this, 'localize_script' ) );
 
-			// Add page inline styles
+			// Add page inline styles.
 			add_action( 'wp_enqueue_scripts', array( $this, 'add_page_inline_style' ), 20 ); // permission 20 is set in order to be after the main css file and after the global typography styles (@see Qi_Blocks_Global_Settings_Typography)
 
-			// Set Qode themes Gutenberg styles
+			// Set Qode themes Gutenberg styles.
 			add_action( 'enqueue_block_editor_assets', array( $this, 'set_themes_gutenberg_styles' ), 15 );
 		}
 
@@ -77,7 +79,7 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 					'options' => array(
 						'required'          => true,
 						'validate_callback' => function ( $param ) {
-							// Simple solution for validation can be 'is_array' value instead of callback function
+							// Simple solution for validation can be 'is_array' value instead of callback function.
 							return is_array( $param ) ? $param : (array) $param;
 						},
 					),
@@ -159,11 +161,11 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 				$include_italic_fonts = false;
 				$templates_selector   = 'body ';
 
-				// Widgets blocks
+				// Widgets blocks.
 				if ( isset( $global_styles['widgets'] ) && ! empty( $global_styles['widgets'] ) ) {
 					foreach ( $global_styles['widgets'] as $block_style ) {
 
-						// If the selector key is not allowed skip that styles
+						// If the selector key is not allowed skip that styles.
 						if ( strpos( $block_style->key, 'qodef-widget-block' ) === false ) {
 							continue;
 						}
@@ -200,11 +202,11 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 					}
 				}
 
-				// Template blocks
+				// Template blocks.
 				if ( isset( $global_styles['templates'] ) && ! empty( $global_styles['templates'] ) ) {
 					foreach ( $global_styles['templates'] as $block_style ) {
 
-						// If the selector key is not allowed skip that styles
+						// If the selector key is not allowed skip that styles.
 						if ( strpos( $block_style->key, 'qodef-template-block' ) === false ) {
 							continue;
 						}
@@ -241,11 +243,11 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 					}
 				}
 
-				// Post blocks
+				// Post blocks.
 				if ( isset( $global_styles['posts'][ $page_id ] ) && ! empty( $global_styles['posts'][ $page_id ] ) ) {
 					$get_page_content = trim( get_the_content( null, false, $page_id ) );
 
-					// Check if the content contains reusable blocks and expand the page content with the real reusable content
+					// Check if the content contains reusable blocks and expand the page content with the real reusable content.
 					preg_match_all( '({[\s]?[\'\"]ref[\'\"]:(.*?)[\s]?})', $get_page_content, $reusable_matches );
 
 					if ( ! empty( $reusable_matches ) && isset( $reusable_matches[1] ) && ! empty( $reusable_matches[1] ) ) {
@@ -264,7 +266,7 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 						}
 					}
 
-					// Check if the content contains italic html selector and include corresponding font weights and styles for it
+					// Check if the content contains italic html selector and include corresponding font weights and styles for it.
 					if ( strpos( $get_page_content, '<em>' ) !== false ) {
 						$include_italic_fonts = true;
 					}
@@ -278,7 +280,7 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 							}
 						}
 
-						// Remove unnecessary styles from the database if IDS not match or values are empty, because Gutenberg can change the block ID
+						// Remove unnecessary styles from the database if IDS not match or values are empty, because Gutenberg can change the block ID.
 						if ( ! empty( $get_page_content ) && property_exists( $block_style, 'key' ) ) {
 							$blocks_removed = false;
 
@@ -319,23 +321,23 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 						}
 					}
 
-					// Update global options indexes
+					// Update global options indexes.
 					if ( $update ) {
 						$global_styles['posts'][ $page_id ] = array_values( $global_styles['posts'][ $page_id ] );
 					}
 				}
 
-				// Enqueue Google Fonts
+				// Enqueue Google Fonts.
 				if ( isset( $fonts['family'] ) && ! empty( $fonts['family'] ) ) {
 					$this->include_google_fonts( $fonts, $include_italic_fonts );
 				}
 
-				// Update global options
+				// Update global options.
 				if ( $update ) {
 					update_option( 'qi_blocks_global_styles', $global_styles );
 				}
 
-				// Load styles
+				// Load styles.
 				if ( ! empty( $styles ) ) {
 					wp_add_inline_style( 'qi-blocks-main', implode( ' ', $styles ) );
 				}
@@ -346,7 +348,7 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 			$general_options      = get_option( QI_BLOCKS_GENERAL_OPTIONS, array() );
 			$disable_google_fonts = ! empty( $general_options ) && isset( $general_options['disable_google_fonts'] );
 
-			// Disable Google Fonts loading if global option is on
+			// Disable Google Fonts loading if global option is on.
 			if ( $disable_google_fonts ) {
 				return;
 			}
@@ -392,45 +394,45 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 			$upload_dir = wp_upload_dir( null, false );
 
 			if ( ! empty( $upload_dir ) && ini_get( 'allow_url_fopen' ) ) {
-				// Set default plugin folder path
+				// Set default plugin folder path.
 				$uploads_qi_dir     = $upload_dir['basedir'] . '/qi-blocks';
 				$uploads_qi_dir_url = $upload_dir['baseurl'] . '/qi-blocks';
 
-				// Create a new folder inside uploads
+				// Create a new folder inside uploads.
 				if ( ! file_exists( trailingslashit( $uploads_qi_dir ) ) ) {
 					wp_mkdir_p( $uploads_qi_dir );
 				}
 
-				// Get all loaded Styles
+				// Get all loaded Styles.
 				global $wp_styles;
 
 				foreach ( $wp_styles->queue as $style ) :
-					// Check style handle is our latest framework or previous one
+					// Check style handle is our latest framework or previous one.
 					if ( 'qi-gutenberg-blocks-style' !== $style && strpos( $style, '-gutenberg-blocks-style' ) !== false || strpos( $style, '-modules-admin-styles' ) !== false ) {
 						$current_style = $wp_styles->registered[ $style ];
 
-						// Check the current style
+						// Check the current style.
 						if ( ! empty( $current_style ) ) {
-							// Get activated theme data
+							// Get activated theme data.
 							$current_theme      = wp_get_theme();
 							$current_theme_name = esc_attr( str_replace( ' ', '-', strtolower( $current_theme->get( 'Name' ) ) ) );
 
-							// Get current file location
+							// Get current file location.
 							$current_style_src       = $current_style->src;
 							$current_style_info      = pathinfo( $current_style_src );
 							$current_style_name      = $current_style_info['filename'];
 							$current_style_extension = $current_style_info['extension'];
 							$current_style_full_name = $current_theme_name . '-' . $current_style_name . '.' . $current_style_extension;
 
-							// Set new file location
+							// Set new file location.
 							$filename     = $uploads_qi_dir . '/' . $current_style_full_name;
 							$filename_url = $uploads_qi_dir_url . '/' . $current_style_full_name;
 
-							// If a new file does not exist, create it
+							// If a new file does not exist, create it.
 							if ( ! file_exists( $filename ) ) {
 								copy( $current_style_src, $filename ); // @codingStandardsIgnoreLine.
 
-								// Get current style content
+								// Get current style content.
 								$current_style_content = @file_get_contents( $current_style_src );
 
 								if ( ! empty( $current_style_content ) ) {
@@ -441,24 +443,24 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 										@fclose( $file_handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fclose
 									}
 
-									// Dequeue current theme styles
+									// Dequeue current theme styles.
 									wp_dequeue_style( $style );
 
-									// Enqueue new theme styles
+									// Enqueue new theme styles.
 									wp_enqueue_style( $style . '-qi-blocks', $filename_url );
 								}
 							} else {
 
-								// Check if the theme style updated
+								// Check if the theme style updated.
 								if ( ! get_transient( 'qi_blocks_check_theme_gutenberg_style' ) ) {
-									// Set time until expiration in seconds. Default value is 1 day
+									// Set time until expiration in seconds. Default value is 1 day.
 									set_transient( 'qi_blocks_check_theme_gutenberg_style', 1, 86400 );
 
-									// Get current style content
+									// Get current style content.
 									$current_style_content = @file_get_contents( $current_style_src );
 
 									if ( ! empty( $current_style_content ) ) {
-										// Get new files data
+										// Get new files data.
 										$new_style_size           = filesize( $filename );
 										$current_theme_style      = str_replace( '!important', '', $current_style_content );
 										$current_theme_style_size = strlen( $current_theme_style );
@@ -474,10 +476,10 @@ if ( ! class_exists( 'Qi_Blocks_Framework_Global_Styles' ) ) {
 									}
 								}
 
-								// Dequeue current theme styles
+								// Dequeue current theme styles.
 								wp_dequeue_style( $style );
 
-								// Enqueue new theme styles
+								// Enqueue new theme styles.
 								wp_enqueue_style( $style . '-qi-blocks', $filename_url );
 							}
 						}

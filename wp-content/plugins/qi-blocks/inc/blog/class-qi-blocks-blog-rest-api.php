@@ -1,11 +1,16 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 class Qi_Blocks_Blog_Rest_API {
 	private static $instance;
 
 	public function __construct() {
 
-		// Extend main rest api routes with new case
+		// Extend main rest api routes with new case.
 		add_filter( 'qi_blocks_filter_rest_api_routes', array( $this, 'add_rest_api_routes' ) );
 	}
 
@@ -20,7 +25,7 @@ class Qi_Blocks_Blog_Rest_API {
 		return self::$instance;
 	}
 
-	function add_rest_api_routes( $routes ) {
+	public function add_rest_api_routes( $routes ) {
 
 		$routes['get-blog-posts'] = array(
 			'route'               => 'get-blog-posts',
@@ -42,7 +47,7 @@ class Qi_Blocks_Blog_Rest_API {
 		return $routes;
 	}
 
-	function get_blog_posts_callback( $response ) {
+	public function get_blog_posts_callback( $response ) {
 		$results = array();
 
 		if ( ! isset( $response ) || empty( $response->get_body() ) ) {
@@ -62,8 +67,8 @@ class Qi_Blocks_Blog_Rest_API {
 					$query_result = new WP_Query( qi_blocks_get_query_params( $atts ) );
 				}
 
-				$results['maxNumPages']        = $query_result->max_num_pages;
-				$posts                         = array();
+				$results['maxNumPages'] = $query_result->max_num_pages;
+				$posts                  = array();
 
 				if ( $query_result->have_posts() ) {
 					while ( $query_result->have_posts() ) :
@@ -108,12 +113,12 @@ class Qi_Blocks_Blog_Rest_API {
 							'date'               => esc_html( get_the_time( get_option( 'date_format' ) ) ),
 							'dateClasses'        => $date_classes,
 							'passwordForm'       => get_the_password_form(),
-							'excerpt'            => esc_html( strip_tags( strip_shortcodes( $new_excerpt ) ) ),
+							'excerpt'            => esc_html( wp_strip_all_tags( strip_shortcodes( $new_excerpt ) ) ),
 							'title'              => get_the_title(),
 							'permalink'          => get_the_permalink(),
 						);
 
-					endwhile; // End of the loop
+					endwhile;
 
 					$results['queriedPostsData'] = $posts;
 
@@ -126,7 +131,6 @@ class Qi_Blocks_Blog_Rest_API {
 			}
 		}
 	}
-
 }
 
 Qi_Blocks_Blog_Rest_API::get_instance();

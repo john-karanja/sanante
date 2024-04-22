@@ -1,11 +1,16 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	// Exit if accessed directly.
+	exit;
+}
+
 class Qi_Blocks_Woocommerce_Rest_API {
 	private static $instance;
 
 	public function __construct() {
 
-		// Extend main rest api routes with new case
+		// Extend main rest api routes with new case.
 		add_filter( 'qi_blocks_filter_rest_api_routes', array( $this, 'add_rest_api_routes' ) );
 	}
 
@@ -20,7 +25,7 @@ class Qi_Blocks_Woocommerce_Rest_API {
 		return self::$instance;
 	}
 
-	function add_rest_api_routes( $routes ) {
+	public function add_rest_api_routes( $routes ) {
 		$routes['get-products-list'] = array(
 			'route'               => 'get-products-list',
 			'methods'             => WP_REST_Server::READABLE,
@@ -50,7 +55,7 @@ class Qi_Blocks_Woocommerce_Rest_API {
 		return $routes;
 	}
 
-	function get_products_list_callback() {
+	public function get_products_list_callback() {
 
 		if ( empty( $_GET ) ) {
 			qi_blocks_get_ajax_status( 'error', esc_html__( 'Get method is invalid', 'qi-blocks' ), array() );
@@ -88,7 +93,7 @@ class Qi_Blocks_Woocommerce_Rest_API {
 		}
 	}
 
-	function get_products_list_query_callback( $response ) {
+	public function get_products_list_query_callback( $response ) {
 		$results = array();
 
 		if ( ! isset( $response ) || empty( $response->get_body() ) ) {
@@ -112,7 +117,7 @@ class Qi_Blocks_Woocommerce_Rest_API {
 						$product_item_classes = wc_get_product_class( '', $product_id );
 
 						if ( ! empty( $product ) ) {
-							//Setting product mark
+							// Setting product mark.
 							$product_mark = array();
 							if ( ! $product->is_in_stock() ) {
 								$product_mark[] = 'out-of-stock';
@@ -122,29 +127,29 @@ class Qi_Blocks_Woocommerce_Rest_API {
 								$product_mark[] = 'sale';
 							}
 
-							//Setting product image
+							// Setting product image.
 							$product_image = '';
 							if ( has_post_thumbnail( $product_id ) ) {
 								$product_image = qi_blocks_get_post_image( $product_id, $atts['imagesProportion'], intval( $atts['customImageWidth'] ), intval( $atts['customImageHeight'] ) );
 							}
 
-							//Setting product link
+							// Setting product link.
 							$product_link = get_the_permalink( $product_id );
 
-							//Setting product price
+							// Setting product price.
 							$product_price_html = $product->get_price_html();
 
-							//Setting product category
+							// Setting product category.
 							$product_category_html = wc_get_product_category_list( $product->get_id(), '<span class="qodef-category-separator"></span>' );
 
-							//Setting product rating html
+							// Setting product rating html.
 							$product_rating_html = '';
 							$product_rating      = $product->get_average_rating();
 							if ( ! empty( $product_rating ) ) {
 								$product_rating_html = qi_blocks_woo_product_get_rating_html( '', $product_rating );
 							}
 
-							//Setting add to cart button params
+							// Setting add to cart button params.
 							$add_to_cart_button_params = qi_blocks_generate_add_to_cart_button_params( $atts );
 
 							$products[] = array(
@@ -160,7 +165,7 @@ class Qi_Blocks_Woocommerce_Rest_API {
 							);
 						}
 
-					endwhile; // End of the loop
+					endwhile;
 
 					$results['queriedProductsData'] = $products;
 

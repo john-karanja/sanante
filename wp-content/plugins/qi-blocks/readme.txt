@@ -1,10 +1,10 @@
 === Qi Blocks ===
 Contributors: qodeinteractive
-Tags: gutenberg blocks, gutenberg, blocks, templates, block, editor, patterns, wireframes, block editor, gutenberg editor, gutenberg templates, gutenberg block
+Tags: gutenberg block, blocks, patterns, wireframes, gutenberg templates
 Requires at least: 5.8
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 1.2.6
+Stable tag: 1.2.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -276,6 +276,13 @@ From wordpress.org
 12.	Device Frame Slider Block.
 
 == Changelog ==
+
+= 1.2.7 - 11-04-2024 =
+- Added WordPress 6.5 compatibility
+- Improved WordPress coding standards
+- Improved Cross Site Scripting (XSS) vulnerability
+- Updated Google fonts list
+- Updated languages file
 
 = 1.2.6 - 13-02-2024 =
 - Improved lightbox feature to prevent potential JS error

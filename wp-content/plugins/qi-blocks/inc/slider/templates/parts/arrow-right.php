@@ -2,6 +2,7 @@
 $icon = ! empty( $navigationNextIcon ) ? $navigationNextIcon : '';
 
 if ( ! empty( $icon['html'] ) ) {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo qi_blocks_get_svg_icon_content( $icon['html'] );
 } else {
 	?>

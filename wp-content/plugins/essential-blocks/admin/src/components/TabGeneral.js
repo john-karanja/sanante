@@ -277,27 +277,39 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.5.6", "essential-blocks")}
+                                    {__("Version: 4.5.10", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("27/03/2024", "essential-blocks")}
+                                        {__("18/04/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Fixed: Post Grid & Post Carousel block is not working in editor",
+                                            "Added: Global color support in Gradient color control",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Testimonial block is not working in editor",
+                                            "Fixed: Post Carousel conflict issue with Spectra theme",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Few minor bug fixes & improvements",
+                                            "Fixed: Advanced Image block issue fix",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Image Gallery block existing images url issue fix",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Table of Contents block collapsable items not working",
                                             "essential-blocks"
                                         )}
                                     </li>

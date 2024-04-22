@@ -397,13 +397,13 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 			<div class="uc-google-connect-message">
 				<?php echo sprintf(__("Connected to: <b>%s</b>", "unlimited-elements-for-elementor"), UEGoogleAPIHelper::getUserEmail()); ?>
 			</div>
-			<a class="button" href="<?php esc_attr_e(UEGoogleAPIHelper::getRevokeUrl()); ?>">
+			<a class="button" href="<?php echo UEGoogleAPIHelper::getRevokeUrl(); ?>">
 				<?php esc_html_e("Disconnect from Google Sheets", "unlimited-elements-for-elementor"); ?>
 			</a>
 			<?php
 		}else{
 			?>
-			<a class="button" href="<?php esc_attr_e(UEGoogleAPIHelper::getAuthUrl()); ?>">
+			<a class="button" href="<?php echo UEGoogleAPIHelper::getAuthUrl(); ?>">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" style="margin-bottom: -0.2em">
 					<path fill="#19b870" d="m21 6-6-6H5a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6z" />
 					<path fill="#80D8B0" d="M15 0v4a2 2 0 0 0 2 2h4l-6-6z" />
@@ -417,7 +417,7 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 		if(empty($error) === false){
 			?>
 			<div class="uc-google-connect-error">
-				<?php echo sprintf(__("Error: %s", "unlimited-elements-for-elementor"), $error); ?>
+				<?php echo sprintf(__("Error: %s", "unlimited-elements-for-elementor"), esc_html($error)); ?>
 			</div>
 			<?php
 		}
@@ -436,7 +436,7 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 
 		if(empty($key) === false){
 			?>
-			<a class="button" href="<?php esc_attr_e($weatherService->getApiKeyTestUrl()); ?>" target="_blank">
+			<a class="button" href="<?php echo $weatherService->getApiKeyTestUrl(); ?>" target="_blank">
 				<?php esc_html_e("Check API", "unlimited-elements-for-elementor"); ?>
 			</a>
 			<?php
@@ -623,6 +623,7 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 		$name = UniteFunctionsUC::getVal($setting, "name");
 		$defaultValue = UniteFunctionsUC::getVal($setting, "default_value");
 		$value = UniteFunctionsUC::getVal($setting, "value");
+		$units = UniteFunctionsUC::getVal($setting, "units");
 		$withNames = UniteFunctionsUC::getVal($setting, "output_names");
 		$withNames = UniteFunctionsUC::strToBool($withNames);
 
@@ -685,6 +686,12 @@ class UniteCreatorSettingsOutput extends UniteSettingsOutputUC{
 			$isLinked = UniteFunctionsUC::strToBool($isLinked);
 
 			?>
+
+			<?php if(empty($units) === false): ?>
+				<div class="unite-dimentions-units">
+					<?php $this->drawUnitsPicker($units); ?>
+				</div>
+			<?php endif; ?>
 
 			<div
 				class="unite-dimentions-link unite-setting-button uc-tip <?php echo $isLinked === true ? "unite-active" : ""; ?>"

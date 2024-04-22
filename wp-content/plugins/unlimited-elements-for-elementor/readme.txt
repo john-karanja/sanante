@@ -1,9 +1,9 @@
 === Unlimited Elements For Elementor (Free Widgets, Addons, Templates) ===
-Contributors: unitecms, valiano, iritmega, amitkeren
+Contributors: unitecms, valiano, iritmega, amitkeren, axmusic
 Donate link: http://unlimited-elements.com/
 Tags: elementor, elements, addons, elementor addons, elementor widget, page builder, builder, visual editor, wordpress page builder, elementor
 Requires at least: 3.5
-Tested up to: 6.4.2
+Tested up to: 6.5
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -866,6 +866,97 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 
 
 == Changelog ==
+
+
+version 1.5.103: 2024-04-16
+
+Plugin Changes:
+
+* Feature: added option to add additional url attributes to post links
+* Feature: improved woo category thumbnail image gether
+* Feature: added option to unite gallery - strip_speed
+* Fix: fixed some widgets editor enable visibility bug
+* Fix: fixed entrance animation run if inside a viewport window
+* Fix: fixed some security issues - escaping some fields output
+
+Widgets Changes:
+
+* Feature: Overlay Carousel (Pro) - Implemented 'Show Dots' option. This new functionality allows users to toggle the visibility of dots within the widget, providing greater control over navigation indicators.
+* Feature: Checkbox Field (Pro) - Implemented 'Checkbox Custom Icon' option. This new functionality allows users to customize the appearance of checkboxes by providing custom icons, enhancing the visual presentation of checkboxes within the widget.
+* Feature: Video Playlist (Pro) - Implemented 'Strip Navigation Speed' option. This new functionality allows users to adjust the speed of navigation within the strip, providing finer control over the scrolling behavior.
+* Feature: Expanding Content Cards (Pro) - Implemented 'Background Image Align' option. This new functionality allows users to specify the alignment of the background image, providing greater control over its positioning within the element.
+* Feature: Post Magazine Grid (Pro) - Implemented 'Meta Date Date Format' option. This new functionality allows users to specify the date format for meta date display, providing customization options for date presentation.
+* Feature: Justified Image Carousel (Pro) - Implemented 'Show Item Title in Lightbox' option. This new functionality allows users to toggle the display of item titles within the lightbox, providing control over the visibility of titles for a better user experience.
+* Feature: Search Filter (Pro) - Implemented 'Custom Links Ending' option. This new functionality allows users to change links in the connected grid to highlight the search phrase.
+* Feature: Load More / Infinite Scroll (Pro) - Implemented 'Connect To Grids Group' option. This new functionality allows users to connect the filter widget to a particular grid widget.
+* Feature: Post Pagination (Free) - Implemented 'Connect To Grids Group' option. This new functionality allows users to connect the filter widget to a particular grid widget.
+* Feature: Content Switcher (Pro) - Introduced option to fire a resize event on tab click, ensuring proper functionality of other widgets inside tab Content Switcher for a smoother and more seamless user experience.
+* Feature: Submit Button (Free) - Implemented 'Show Field Name In Empty Field Error Message' option. This new functionality allows users to include the field name in the empty field error message, providing clearer feedback to users when a required field is left blank.
+* Feature: Side Menu (Pro) - Implemented 'Templates Width' and 'Templates Horizontal Align' options.
+* Change: Unlimited Grid (Pro) - Changed 'Title Spacing' option to 'Title Margin'. This change allows users to add margin in all directions to the title, providing more granular control over its positioning within the widget.
+* Fix: Content Box Hover Text Reveal (Free) - Resolved issue where Overlay Opacity option wasn't working on mobile devices. This fix ensures that the Overlay Opacity option functions correctly across all devices, providing consistent behavior and appearance.
+* Fix: Multi Step Form (Pro) - Fixed Multi Step Error Message not showing when empty and required field was present on active step.
+* Fix: Submit Button (Free) - Fixed Submit Button verification issue when fields with 0 value were parsed as empty.
+* Fix: Slider Field (Pro) - Resolved issue where border radius for focus state differed from regular state. This fix ensures that the border radius remains consistent across different states.
+* Fix: Icon Bullets (Free) - Fixed issue related to Hover Colors not being revealed after item hover.
+* Fix: Team Member Sliding Effect (Pro) - Resolved issue related to global colors usage. This fix ensures that global colors are properly utilized throughout the widget, maintaining consistency and accuracy in color rendering.
+* Fix: Post Magazine Grid (Pro) - Optimized widget HTML. This optimization improves the efficiency and performance of the widget by streamlining the HTML structure and reducing unnecessary code.
+* Fix: Form Fields Widgets: Resolved vulnerability where scripts could be injected under certain widget attributes. This fix ensures that scripts are properly sanitized and prevented from being inserted into widget attributes, mitigating potential security risks.
+
+
+
+version 1.5.101: 2024-04-03
+
+Plugin Changes:
+
+* Feature - added "date time" attribute to items attributes list
+* Feature - made some integration for "relevanssi" plugin
+* Feature - added woo rating stars to multisource fields
+* Feature - added visual text that showing the form fields conditions
+* Fix - fixed filters mode init mode
+* Fix - fixed various filters related bugs
+* Fix - fixed ucpage parameter fetch for pagination in archive page
+* Fix - fixed gallery from meta field item source texts 
+* Fix - fixed some number field processing
+* Fix - fixed multisep form with template submit
+
+Widgets Changes: 
+
+* Feature: Radio Button Field (Pro) - Implemented 'Set First Item Selected' option. This new functionality allows users to automatically select the first item in the widget.
+* Feature: Fullscreen Menu (Free) - Implemented 'Open Current Submenu On Page Load' option. This new functionality allows users to automatically expand the current submenu on page load, providing immediate access to relevant content.
+* Feature: Background Slider (Pro) - Introduced 'Add SEO Tags' option, allowing users to include alt and title attributes for images for improved search engine optimization of the widget content.
+* Feature: Floating Chat Buttons (Pro) - Introduced "Close Message Box After Send" option, allowing automatic closure of the message box after clicking the send button for improved user experience and convenience.
+* Feature: Floating Chat Buttons (Pro) - Introduced "Close Button After Click" option, enabling automatic closure of the buttons after clicking any button, eliminating the need for manual closure for enhanced user convenience and interaction.
+* Feature: Content Grid (Pro) - Implemented 'Description' option. This new functionality allows users to add a description to the widget, providing additional context or instructions.
+* Feature: SVG Animation (Free) - Optimized widget for Elementor Popup compatibility. This update ensures seamless integration and improved performance when using the widget within Elementor Popups.
+* Feature: Animated Ripples (Pro) - Introduced 'Ripple Scale' option, enabling users to control the size of the ripples for enhanced visual customization and effect.
+* Feature: Interactive Circle Infographic (Pro) - Implemented 'Item Trigger type' for Segment Layout type. This new functionality allows segments to be opened by hovering on them, providing users with an alternative interaction method.
+* Feature: Line Text Divider (Free) - Added styling options including Line Thickness, Line Border Radius, Line Shadow, Text Typography, Background Color, Padding, Border, Border Radius, and Box Shadow for enhanced customization. Additionally, existing styling options have been improved for better optimization and user experience.
+* Feature: Price Range Filter (Pro) - Implemented Grow Effect on Thumb Hover option. This new functionality allows users to enable the grow effect on thumbnail hover.
+* Feature: Price Range Filter (Pro) - Implemented Hide Default Arrows option. This new functionality allows users to hide default arrows, providing enhanced customization of the widget's appearance and behavior.
+* Feature: Post Grid (Pro) - Implemented 'Show Time Ago' option. This new functionality allows users to display the time elapsed since a publish event, providing context and improving user engagement.
+* Feature: Dropdown Field (Pro) - Implemented 'Required' option. This new functionality allows users to mark a field as required, ensuring that users must fill it out before submitting the form.
+* Feature: Submit Button (Free) - Implemented 'Empty Field Error Text' option. This new functionality allows users to customize the error message displayed when a required field is left empty.
+* Feature: Icon Bullets (Free) - Implemented 'Title Color Hover' and 'Text Color Hover' options. These new functionalities allow users to customize the color of titles and text when hovered over, providing enhanced interactivity and visual feedback.
+* Feature: Unlimited Charts (Pro) - Implemented 'Font Family' option for Label X Axis and Y Axis. This new functionality allows users to customize the font family for labels displayed on the X and Y axes, providing enhanced typography control.
+* Feature: Overlay Carousel (Pro) - Implemented 'Show Arrows' option and updated Arrows styling options. This new functionality allows users to control the visibility of arrows and customize their styling, providing more flexibility in widget design and navigation.
+* Feature: Post Timeline (Pro) - Implemented 'Empty Message' option. This new functionality allows users to display a custom message when no posts are found, providing better user feedback and enhancing the user experience.
+* Feature: Checkbox Field (Pro) - Implemented 'Required' option. This new functionality allows users to mark a field as required, ensuring that users must fill it out before submitting the form.
+* Feature: Radio Button Field (Pro) - Implemented 'Required' option. This new functionality allows users to mark a field as required, ensuring that users must fill it out before submitting the form.
+* Change: Checkboxes Filter (Pro) - Added 'aria-label' attribute to links. This new functionality enhances accessibility by providing descriptive labels for elements.
+* Change: Post Carousel (Pro) - Added 'alt' and 'title' attributes to the image for improved SEO optimization and accessibility.
+* Change: Flip Box Carousel (Pro) - Changed some selectors in CSS to avoid empty items appearing on live page.
+* Change: Underline Animated Button (Free) - Changed <section> tag to <div>. This update improves the semantic structure of the widget, ensuring better compatibility with various screen readers and accessibility standards.
+* Change: Unlimited Charts (Pro) - Updated the animation option to trigger animation when the chart comes into view instead of upon initial load, improving user experience and visual appeal.
+* Change: Submit Button (Free) - Changed the position of Empty Field Errors to be grouped after the submit button. This update enhances the layout and organization of error messages, providing users with a clearer indication of missing information before submission.
+* Change: Post Blocks (Free) - Changed CSS selector for Typography option for better accessibility. This update improves the accessibility of the Typography option by using a more descriptive and accessible CSS selector.
+* Change: List Marquee (Pro) - Increased speed limit to 1000. This update enhances the speed capabilities of the widget, allowing for faster performance and smoother animations.
+* Change: Checkbox Field (Pro) - Increased accessibility by adding IDs to input elements and "for" attributes to label elements. This update improves accessibility by associating labels with their corresponding form controls, making it easier for screen readers and other assistive technologies to interpret and navigate the form.
+* Change: Masonry Gallery (Pro) - Implemented 'Autoplay Video In Lightbox' option. This new functionality allows users to enable autoplay for videos displayed within the lightbox, providing a more dynamic and engaging viewing experience.
+* Change: WhatsApp Chat (Pro) - Added 'aria-label' attribute to links. This new functionality enhances accessibility by providing descriptive labels for elements.
+* Fix: Number Field (Pro) - Implemented CSS protection from the max-width CSS property. This new functionality safeguards against unintended styling conflicts or overrides caused by the max-width property.
+* Fix: Fullscreen Menu (Free) - Addressed issue where the fullscreen menu was not displayed correctly in Safari browser.
+* Fix: Image Scroll (Pro) - Resolved 404 error appearing every time Overlay element was added on the page. This fix ensures that the Overlay element is loaded correctly without triggering a 404 error.
 
 
 version 1.5.100: 2024-03-17

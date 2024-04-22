@@ -21,14 +21,14 @@ if ( ! class_exists( 'Qi_Blocks_Blocks' ) ) {
 		private $block_options           = array();
 
 		public function __construct() {
-			// Get block status
+			// Get block status.
 			$block_flag   = true;
 			$block_status = apply_filters( 'qi_blocks_filter_block_status', false );
 
-			// Set namespace for blocks
+			// Set namespace for blocks.
 			$this->set_blocks_namespace( 'qi-blocks' );
 
-			// Add block into global list
+			// Add block into global list.
 			if ( ! empty( $this->get_block_title() ) ) {
 
 				if ( in_array( $this->get_block_type(), array( 'premium', 'landing' ), true ) && ! $block_status ) {
@@ -52,13 +52,13 @@ if ( ! class_exists( 'Qi_Blocks_Blocks' ) ) {
 				}
 			}
 
-			// Register block
+			// Register block.
 			add_action( 'init', array( $this, 'register_block' ) );
 
-			// Loads core block assets only when they are rendered on the page - WordPress 5.8
+			// Loads core block assets only when they are rendered on the page - WordPress 5.8.
 			add_filter( 'should_load_separate_core_block_assets', '__return_true' );
 
-			// Enqueue block 3rd party plugin's assets
+			// Enqueue block 3rd party plugin's assets.
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_3rd_party_scripts' ) );
 			add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_3rd_party_editor_scripts' ) );
 		}
@@ -179,7 +179,7 @@ if ( ! class_exists( 'Qi_Blocks_Blocks' ) ) {
 			$disabled_blocks = get_option( QI_BLOCKS_DISABLED_BLOCKS );
 			$block_status    = apply_filters( 'qi_blocks_filter_block_status', false );
 
-			// Prevent blocks loading if it's disabled
+			// Prevent blocks loading if it's disabled.
 			if ( ! empty( $disabled_blocks ) && key_exists( $this->get_block_name(), $disabled_blocks ) ) {
 				return;
 			}
@@ -188,10 +188,10 @@ if ( ! class_exists( 'Qi_Blocks_Blocks' ) ) {
 				return;
 			}
 
-			// Get blocks options
+			// Get blocks options.
 			$block_options = $this->get_block_options();
 
-			// Set blocks scripts
+			// Set blocks scripts.
 			$this->set_blocks_scripts();
 
 			register_block_type(
@@ -233,12 +233,12 @@ if ( ! class_exists( 'Qi_Blocks_Blocks' ) ) {
 					$block_url_path = QI_BLOCKS_LANDING_ASSETS_URL_PATH . '/dist/' . $block_name;
 				}
 
-				// Check if CSS file exists
+				// Check if CSS file exists.
 				if ( file_exists( $block_dir_path . '.css' ) ) {
-					// Set block style dependency
+					// Set block style dependency.
 					$style_dependency = apply_filters( 'qi_blocks_filter_block_style_dependency', array() );
 
-					// Register block editor extended script
+					// Register block editor extended script.
 					if ( $is_premium && file_exists( QI_BLOCKS_PREMIUM_ASSETS_PATH . '/dist/' . $block_name . '-extended.css' ) ) {
 						wp_register_style(
 							'qi-blocks-' . $block_name . '-extended',
@@ -257,18 +257,18 @@ if ( ! class_exists( 'Qi_Blocks_Blocks' ) ) {
 						$style_dependency[] = 'qi-blocks-' . $block_name . '-extended';
 					}
 
-					// Register block style
+					// Register block style.
 					wp_register_style( 'qi-blocks-' . $block_name, $block_url_path . '.css', $style_dependency );
 
-					// Set block style
+					// Set block style.
 					$this->set_block_style( 'qi-blocks-' . $block_name );
 				}
 
-				// Check if JS file exists
+				// Check if JS file exists.
 				if ( file_exists( $block_dir_path . '-script.js' ) ) {
 					$script_dependency = array( 'qi-blocks-main' );
 
-					// Register block extended script
+					// Register block extended script.
 					if ( $is_premium && file_exists( QI_BLOCKS_PREMIUM_ASSETS_PATH . '/dist/' . $block_name . '-extended-script.js' ) ) {
 						wp_register_script(
 							'qi-blocks-' . $block_name . '-extended-script',
@@ -287,15 +287,15 @@ if ( ! class_exists( 'Qi_Blocks_Blocks' ) ) {
 						$script_dependency[] = 'qi-blocks-' . $block_name . '-extended-script';
 					}
 
-					// Register block editor script
+					// Register block editor script.
 					wp_register_script( 'qi-blocks-' . $block_name, $block_url_path . '-script.js', $script_dependency, false, true );
 
-					// Set block editor script
+					// Set block editor script.
 					$this->set_block_script( 'qi-blocks-' . $block_name );
 				} else {
 					$register_script_flag = false;
 
-					// Register block extended script
+					// Register block extended script.
 					if ( $is_premium && file_exists( QI_BLOCKS_PREMIUM_ASSETS_PATH . '/dist/' . $block_name . '-extended-script.js' ) ) {
 						$register_script_flag = true;
 
@@ -319,28 +319,28 @@ if ( ! class_exists( 'Qi_Blocks_Blocks' ) ) {
 					}
 
 					if ( $register_script_flag ) {
-						// Set block editor script
+						// Set block editor script.
 						$this->set_block_script( 'qi-blocks-' . $block_name . '-extended-script' );
 					}
 				}
 
-				// Check if editor CSS file exists
+				// Check if editor CSS file exists.
 				if ( file_exists( $block_dir_path . '-editor.css' ) ) {
-					// Set block style editor dependency
+					// Set block style editor dependency.
 					$editor_style_dependency = apply_filters( 'qi_blocks_filter_block_style_dependency', array() );
 
-					// Register block editor style
+					// Register block editor style.
 					wp_register_style( 'qi-blocks-' . $block_name . '-editor', $block_url_path . '-editor.css', $editor_style_dependency );
 
-					// Set block editor style
+					// Set block editor style.
 					$this->set_block_editor_style( 'qi-blocks-' . $block_name . '-editor' );
 				}
 
-				// Check if editor script file exists
+				// Check if editor script file exists.
 				if ( file_exists( $block_dir_path . '.js' ) ) {
 					$editor_script_dependency = array( 'qi-blocks-main-editor' );
 
-					// Register block editor extended script
+					// Register block editor extended script.
 					if ( $is_premium && file_exists( QI_BLOCKS_PREMIUM_ASSETS_PATH . '/dist/' . $block_name . '-extended.js' ) ) {
 						wp_register_script(
 							'qi-blocks-' . $block_name . '-editor-extended',
@@ -350,7 +350,7 @@ if ( ! class_exists( 'Qi_Blocks_Blocks' ) ) {
 
 						$editor_script_dependency[] = 'qi-blocks-' . $block_name . '-editor-extended';
 
-						// Enqueue localization data for our blocks
+						// Enqueue localization data for our blocks.
 						if ( function_exists( 'wp_set_script_translations' ) ) {
 							wp_set_script_translations( 'qi-blocks-' . $block_name . '-editor-extended', 'qi-blocks-premium', QI_BLOCKS_PREMIUM_PLUGIN_LANGUAGES_PATH );
 						}
@@ -364,13 +364,13 @@ if ( ! class_exists( 'Qi_Blocks_Blocks' ) ) {
 						$editor_script_dependency[] = 'qi-blocks-' . $block_name . '-editor-extended';
 					}
 
-					// Register block editor script
+					// Register block editor script.
 					wp_register_script( 'qi-blocks-' . $block_name . '-editor', $block_url_path . '.js', $editor_script_dependency );
 
-					// Set block editor script
+					// Set block editor script.
 					$this->set_block_editor_script( 'qi-blocks-' . $block_name . '-editor' );
 
-					// Enqueue localization data for our blocks
+					// Enqueue localization data for our blocks.
 					if ( function_exists( 'wp_set_script_translations' ) ) {
 						wp_set_script_translations( 'qi-blocks-' . $block_name . '-editor', $text_domain, $languages_path );
 					}
@@ -407,7 +407,7 @@ if ( ! class_exists( 'Qi_Blocks_Blocks' ) ) {
 						$has_script_style = $script_value['has_style'];
 					}
 
-					// Check if block exist on the page and then try to load scripts
+					// Check if block exist on the page and then try to load scripts.
 					$additional_conditional = true;
 					if ( ! $editor_mode ) {
 						$additional_conditional = function_exists( 'has_block' ) && has_block( 'qi-blocks/' . $script_value['block_name'] );
@@ -415,13 +415,13 @@ if ( ! class_exists( 'Qi_Blocks_Blocks' ) ) {
 						if ( ! $additional_conditional && function_exists( 'get_the_block_template_html' ) ) {
 							$template_content = qi_blocks_get_the_block_template_html();
 
-							// Check if block exist inside FSE template part
+							// Check if block exist inside FSE template part.
 							if ( ! empty( $template_content ) && strpos( $template_content, 'qi-block-' . $script_value['block_name'] ) !== false ) {
 								$additional_conditional = true;
 							}
 						}
 
-						// Check if block exist inside Widgets sidebar area
+						// Check if block exist inside Widgets sidebar area.
 						if ( ! $additional_conditional ) {
 							$widgets_block = get_option( 'widget_block' );
 

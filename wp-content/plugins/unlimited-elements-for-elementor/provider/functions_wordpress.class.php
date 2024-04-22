@@ -1772,36 +1772,127 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 			return($arrMetaOutput);
 		}
-
+		
 		/**
-		 * get term meta
+		 * get term meta image id. guess what the image is by the type
 		 */
-		public static function getTermImage($termID, $metaKey){
+		public static function getTermMetaImageID($termID){
 
+			$isAcfActive = UniteCreatorAcfIntegrate::isAcfActive();
+
+			//get iamge from acf if exists
+			
+			if($isAcfActive){
+
+				$objAcf = self::getObjAcfIntegrate();
+				$arrImageIDs = $objAcf->getAcfFieldsImageIDs($termID, "term");
+				
+				//get array of meta image id's
+				
+				if(isset($arrImageIDs["thumbnail_id"]))
+					return($arrImageIDs["thumbnail_id"]);
+				
+				$imageID = UniteFunctionsUC::getArrFirstValue($arrImageIDs);
+				
+				return($imageID);
+			}
+			
+			$arrMeta = self::getTermMeta($termID);
+
+			if(empty($arrMeta))
+				return(null);
+			
+			
+			//guess by name
+				
+			$arrNames = array("thumbnail_id","image","img","thumbnail","thumb");
+			
+			foreach($arrNames as $name){
+				
+				if(!isset($arrMeta[$name]))
+					continue;
+					
+				$imageID = $arrMeta[$name];
+				
+				if(is_numeric($imageID) == false){
+					
+					$arrItem = UniteFunctionsUC::maybeUnserialize($imageID);
+					
+					if(is_array($arrItem))
+						$imageID = UniteFunctionsUC::getVal($arrItem, "id");
+				}
+				
+				
+				if(!empty($imageID) && is_numeric($imageID))
+					return($imageID);
+			}
+			
+			
+			//if not quesing - not continue, they should enter the exact meta key
+			
+			return(null);
+		}
+		
+		/**
+		 * get term image id, or null
+		 * metaKey - some key | debug | woo_cat
+		 */
+		public static function getTermImageID($termID, $metaKey){
+			
 			if(empty($termID) || $termID === "current")
 				$termID = self::getCurrentTermID();
 
 			if(empty($termID))
 				return(null);
 
-		if($metaKey == "debug"){
-			$arrMeta = get_term_meta($termID);
+			if($metaKey == "debug"){
+				$arrMeta = get_term_meta($termID);
+				
+				dmp("term: $termID meta: ");
+	
+				dmp($arrMeta);
+			}
+			
+			// guess the woo category meta key
+			
+			if($metaKey == "woo_cat"){
+				
+				$thumbID = self::getTermMetaImageID($termID);
+				
+				return($thumbID);
+			}
 
-			dmp("term: $termID meta: ");
-
-			dmp($arrMeta);
+			if(empty($metaKey))
+				return (null);
+			
+			$attachmentID = get_term_meta($termID, $metaKey, true);
+			
+			
+			if(!empty($attachmentID) && is_numeric($attachmentID) == false){
+				
+				$arrItem = UniteFunctionsUC::maybeUnserialize($attachmentID);
+				
+				if(is_array($arrItem))
+					$attachmentID = UniteFunctionsUC::getVal($arrItem, "id");
+			}
+			
+			
+			return($attachmentID);
 		}
-
-		if(empty($metaKey))
-			return (null);
-
-		$attachmentID = get_term_meta($termID, $metaKey, true);
-
-		if(empty($attachmentID))
-			return (null);
-
-		$arrImage = self::getAttachmentData($attachmentID);
-
+		
+		
+		/**
+		 * get term meta
+		 */
+		public static function getTermImage($termID, $metaKey){
+			
+			$attachmentID = self::getTermImageID($termID, $metaKey);
+			
+			if(empty($attachmentID))
+				return (null);
+			
+			$arrImage = self::getAttachmentData($attachmentID);
+		
 		return ($arrImage);
 	}
 
@@ -3819,37 +3910,72 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			$objScripts = wp_styles();
 		else
 			$objScripts = wp_scripts();
-
-		dmp("Registered scripts: ");
-
+		
+		if($type == "js")
+			dmp("Registered scripts: ");
+		else
+			dmp("Registered styles: ");
+		
 		foreach( $objScripts->queue as $scriptName ){
 
 			$objScript = UniteFunctionsUC::getVal($objScripts->registered, $scriptName);
 
 			$url = $objScript->src;
-
-			dmp("$scriptName | $url");
+			
+			$deps = $objScript->deps;
+			$strDeps = "";
+			
+			if(is_array($deps))
+				$strDeps = implode(",", $deps);
+					
+			dmp("$scriptName | $url | $strDeps");
 		}
 
 	}
 
 	/**
+	 * include some dependency in some script
+	 */
+	public static function removeIncludeScriptDep($depName){
+		
+		global $wp_scripts;
+		
+		foreach($wp_scripts->registered as $name=>$script){
+			
+			if(empty($script->deps))
+				continue;
+
+			if(is_array($script->deps) == false)
+				continue;
+			
+			foreach($script->deps as $key => $dep){
+				
+				if($dep == $depName){
+					unset($wp_scripts->registered[$name]->deps[$key]);					
+				}
+									
+			}
+			
+		}
+		
+		
+	}
+	
+	/**
 	 * find and remove some include
 	 */
 	public static function findAndRemoveInclude($filename, $isJS = true){
-
 
 		if($isJS == false)
 			$objScripts = wp_styles();
 		else
 			$objScripts = wp_scripts();
 
-
 		if(empty($objScripts))
 			return(false);
 
 		$arrDeleted = array();
-
+		
 		foreach( $objScripts->queue as $scriptName ){
 
 			$objScript = UniteFunctionsUC::getVal($objScripts->registered, $scriptName);
@@ -3882,7 +4008,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 				wp_deregister_script( $scriptName );
 			else
 				wp_deregister_style( $scriptName );
-
+			
 		}
 
 

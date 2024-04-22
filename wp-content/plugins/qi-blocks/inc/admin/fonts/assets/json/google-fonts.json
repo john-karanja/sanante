@@ -1087,6 +1087,20 @@
     ]
   },
   {
+    "family": "Annapurna SIL",
+    "variants": [
+      "regular",
+      "700"
+    ],
+    "subsets": [
+      "devanagari",
+      "latin",
+      "latin-ext",
+      "math",
+      "symbols"
+    ]
+  },
+  {
     "family": "Annie Use Your Telescope",
     "variants": [
       "regular"
@@ -1108,6 +1122,18 @@
       "greek",
       "latin",
       "latin-ext"
+    ]
+  },
+  {
+    "family": "Anta",
+    "variants": [
+      "regular"
+    ],
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "math",
+      "symbols"
     ]
   },
   {
@@ -2879,7 +2905,9 @@
     ],
     "subsets": [
       "latin",
-      "latin-ext"
+      "latin-ext",
+      "math",
+      "symbols"
     ]
   },
   {
@@ -4655,6 +4683,8 @@
       "hebrew",
       "latin",
       "latin-ext",
+      "math",
+      "symbols",
       "vietnamese"
     ]
   },
@@ -8181,6 +8211,18 @@
     ]
   },
   {
+    "family": "Jacquarda Bastarda 9",
+    "variants": [
+      "regular"
+    ],
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "math",
+      "symbols"
+    ]
+  },
+  {
     "family": "Jacques Francois",
     "variants": [
       "regular"
@@ -8979,6 +9021,19 @@
       "latin-ext",
       "thai",
       "vietnamese"
+    ]
+  },
+  {
+    "family": "Kode Mono",
+    "variants": [
+      "regular",
+      "500",
+      "600",
+      "700"
+    ],
+    "subsets": [
+      "latin",
+      "latin-ext"
     ]
   },
   {
@@ -10329,6 +10384,18 @@
     ]
   },
   {
+    "family": "Madimi One",
+    "variants": [
+      "regular"
+    ],
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "math",
+      "symbols"
+    ]
+  },
+  {
     "family": "Magra",
     "variants": [
       "regular",
@@ -10979,6 +11046,18 @@
     "subsets": [
       "latin",
       "latin-ext"
+    ]
+  },
+  {
+    "family": "Micro 5",
+    "variants": [
+      "regular"
+    ],
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "math",
+      "symbols"
     ]
   },
   {
@@ -11700,6 +11779,21 @@
     ]
   },
   {
+    "family": "Namdhinggo",
+    "variants": [
+      "regular",
+      "500",
+      "600",
+      "700",
+      "800"
+    ],
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "limbu"
+    ]
+  },
+  {
     "family": "Nanum Brush Script",
     "variants": [
       "regular"
@@ -12032,7 +12126,11 @@
       "900"
     ],
     "subsets": [
-      "arabic"
+      "arabic",
+      "latin",
+      "latin-ext",
+      "math",
+      "symbols"
     ]
   },
   {
@@ -12303,7 +12401,9 @@
     "subsets": [
       "brahmi",
       "latin",
-      "latin-ext"
+      "latin-ext",
+      "math",
+      "symbols"
     ]
   },
   {
@@ -12615,9 +12715,13 @@
       "900"
     ],
     "subsets": [
+      "cyrillic-ext",
       "georgian",
+      "greek-ext",
       "latin",
-      "latin-ext"
+      "latin-ext",
+      "math",
+      "symbols"
     ]
   },
   {
@@ -13291,9 +13395,12 @@
       "regular"
     ],
     "subsets": [
+      "chinese-simplified",
       "latin",
       "latin-ext",
-      "mongolian"
+      "math",
+      "mongolian",
+      "symbols"
     ]
   },
   {
@@ -14943,6 +15050,19 @@
     ]
   },
   {
+    "family": "Noto Znamenny Musical Notation",
+    "variants": [
+      "regular"
+    ],
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "math",
+      "symbols",
+      "znamenny"
+    ]
+  },
+  {
     "family": "Nova Cut",
     "variants": [
       "regular"
@@ -15132,6 +15252,25 @@
       "latin",
       "latin-ext",
       "tamil",
+      "vietnamese"
+    ]
+  },
+  {
+    "family": "Ojuju",
+    "variants": [
+      "200",
+      "300",
+      "regular",
+      "500",
+      "600",
+      "700",
+      "800"
+    ],
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "math",
+      "symbols",
       "vietnamese"
     ]
   },
@@ -16280,7 +16419,6 @@
       "900italic"
     ],
     "subsets": [
-      "devanagari",
       "latin",
       "latin-ext"
     ]
@@ -17089,6 +17227,24 @@
     "subsets": [
       "latin",
       "latin-ext"
+    ]
+  },
+  {
+    "family": "Reddit Mono",
+    "variants": [
+      "200",
+      "300",
+      "regular",
+      "500",
+      "600",
+      "700",
+      "800",
+      "900"
+    ],
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "vietnamese"
     ]
   },
   {
@@ -19852,6 +20008,19 @@
     ]
   },
   {
+    "family": "Tac One",
+    "variants": [
+      "regular"
+    ],
+    "subsets": [
+      "latin",
+      "latin-ext",
+      "math",
+      "symbols",
+      "vietnamese"
+    ]
+  },
+  {
     "family": "Tai Heritage Pro",
     "variants": [
       "regular",
@@ -21279,6 +21448,50 @@
       "devanagari",
       "latin",
       "latin-ext"
+    ]
+  },
+  {
+    "family": "Yarndings 12",
+    "variants": [
+      "regular"
+    ],
+    "subsets": [
+      "latin",
+      "math",
+      "symbols"
+    ]
+  },
+  {
+    "family": "Yarndings 12 Charted",
+    "variants": [
+      "regular"
+    ],
+    "subsets": [
+      "latin",
+      "math",
+      "symbols"
+    ]
+  },
+  {
+    "family": "Yarndings 20",
+    "variants": [
+      "regular"
+    ],
+    "subsets": [
+      "latin",
+      "math",
+      "symbols"
+    ]
+  },
+  {
+    "family": "Yarndings 20 Charted",
+    "variants": [
+      "regular"
+    ],
+    "subsets": [
+      "latin",
+      "math",
+      "symbols"
     ]
   },
   {
